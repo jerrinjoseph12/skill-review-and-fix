@@ -2,7 +2,15 @@
 
 A [Claude Code](https://claude.com/claude-code) skill that reviews code, ranks each finding by severity, and fixes them from the most severe down to a threshold you choose. After each severity level it runs your project's tests and linters to check the fixes.
 
-It applies platform standards for **Java, C#/.NET, Appian (SAIL), HTML/CSS and accessibility, XML, JavaScript/TypeScript, SQL and Python**, plus the **OWASP Top 10:2025** for security.
+It applies platform standards for:
+
+- **Languages:** Java, Kotlin, C#/.NET, Go, PHP, Python, JavaScript/TypeScript, SQL
+- **Mobile:** Apple iOS (Swift, Objective-C), Android
+- **Web and low-code:** HTML/CSS and accessibility, XML, Appian (SAIL)
+- **Testing:** Playwright, Cypress, Selenium, Appium and unit test frameworks
+- **Infrastructure and delivery:** Terraform and other infrastructure-as-code, Docker and Kubernetes, CI/CD pipelines, shell scripts
+
+It also checks every review against the **OWASP Top 10:2025** for security.
 
 ## Install
 
@@ -85,6 +93,18 @@ Severity is judged by **impact × likelihood**, not by category. The full rubric
 | `*.js`, `*.ts`, `*.jsx`, `*.tsx`, `*.vue` | [javascript-typescript.md](.claude/skills/review-and-fix/standards/javascript-typescript.md) | OWASP Node.js guidance, typescript-eslint |
 | `*.sql`, migrations, stored procedures | [sql.md](.claude/skills/review-and-fix/standards/sql.md) | Vendor docs, OWASP SQL Injection Prevention |
 | `*.py` | [python.md](.claude/skills/review-and-fix/standards/python.md) | PEP 8, PEP 484, Bandit, Django deployment checklist |
+| `*.kt`, `*.kts` | [kotlin.md](.claude/skills/review-and-fix/standards/kotlin.md) | Kotlin coding conventions, kotlinx.coroutines guide, Spring Boot and Ktor docs |
+| `*.go` | [go.md](.claude/skills/review-and-fix/standards/go.md) | *Effective Go*, Go Code Review Comments, `go vet`, `govulncheck` |
+| `*.php`, Blade, Twig | [php.md](.claude/skills/review-and-fix/standards/php.md) | PHP manual security section, PSR-12 / PER, Laravel, Symfony and WordPress security docs |
+| `*.swift`, `*.m`, `Info.plist`, privacy manifests | [ios-swift.md](.claude/skills/review-and-fix/standards/ios-swift.md) | Swift API Design Guidelines, Apple Platform Security, App Store Review Guidelines, OWASP MASVS |
+| Android modules, `AndroidManifest.xml` | [android.md](.claude/skills/review-and-fix/standards/android.md) | Android security best practices and app quality guidelines, OWASP MASVS / MASTG |
+| Test code and E2E suites | [test-automation.md](.claude/skills/review-and-fix/standards/test-automation.md) | Playwright, Cypress, Selenium and Appium best-practice guides, *xUnit Test Patterns* |
+| Terraform, CloudFormation, Bicep, Pulumi | [infrastructure-as-code.md](.claude/skills/review-and-fix/standards/infrastructure-as-code.md) | Terraform recommended practices, CIS cloud benchmarks |
+| `Dockerfile`, Compose, Kubernetes, Helm | [containers-kubernetes.md](.claude/skills/review-and-fix/standards/containers-kubernetes.md) | Dockerfile best practices, CIS Docker and Kubernetes benchmarks, Pod Security Standards |
+| GitHub Actions, Jenkins, Bitbucket, GitLab, Azure Pipelines | [ci-cd.md](.claude/skills/review-and-fix/standards/ci-cd.md) | GitHub Actions security hardening, OWASP Top 10 CI/CD Security Risks, SLSA |
+| `*.sh`, `*.bash`, `*.zsh`, `*.ps1` | [shell-scripts.md](.claude/skills/review-and-fix/standards/shell-scripts.md) | ShellCheck, Google Shell Style Guide, PSScriptAnalyzer |
+
+A file can match more than one row, and the skill loads every matching file. For example, an Android Kotlin test gets the Kotlin, Android and test-automation checklists.
 
 Each checklist item has a default severity tag: `[C]`, `[H]`, `[M]` or `[L]`. The review adjusts it for the actual impact. For other languages, the skill uses the security standards, the language's official style guide and the project's own linters.
 
@@ -114,5 +134,15 @@ For Appian, install the `appian` skill as well if you have it. This skill uses i
     ├── xml.md
     ├── javascript-typescript.md
     ├── sql.md
-    └── python.md
+    ├── python.md
+    ├── kotlin.md
+    ├── go.md
+    ├── php.md
+    ├── ios-swift.md
+    ├── android.md
+    ├── test-automation.md
+    ├── infrastructure-as-code.md
+    ├── containers-kubernetes.md
+    ├── ci-cd.md
+    └── shell-scripts.md
 ```

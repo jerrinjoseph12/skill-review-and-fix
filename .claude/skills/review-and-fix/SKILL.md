@@ -1,6 +1,6 @@
 ---
 name: review-and-fix
-description: Review code for bugs, security issues, performance problems and maintainability concerns, rank every finding by severity (Critical, High, Medium, Low), then fix them in severity order, highest first, down to a chosen threshold, checking each fix with the project's tests and linters. Applies platform standards for Java, C#/.NET, Appian (SAIL), HTML/CSS/accessibility, XML, JavaScript/TypeScript, SQL and Python, plus OWASP Top 10:2025. Use when the user asks to review and fix code, clean up a diff before merging, harden a file or module, or "find and fix issues". Targets the uncommitted diff by default, or a path, branch or PR number.
+description: Review code for bugs, security issues, performance problems and maintainability concerns, rank every finding by severity (Critical, High, Medium, Low), then fix them in severity order, highest first, down to a chosen threshold, checking each fix with the project's tests and linters. Applies platform standards for Java, Kotlin, C#/.NET, Go, PHP, Python, JavaScript/TypeScript, Apple iOS/Swift, Android, Appian (SAIL), HTML/CSS/accessibility, XML, SQL, test automation (Playwright, Cypress, Selenium, Appium, unit tests), Terraform/IaC, Docker/Kubernetes, CI/CD pipelines and shell scripts, plus OWASP Top 10:2025. Use when the user asks to review and fix code, clean up a diff before merging, harden a file or module, or "find and fix issues". Targets the uncommitted diff by default, or a path, branch or PR number.
 argument-hint: "[path | branch | PR#] [--threshold critical|high|medium|low] [--dry-run]"
 ---
 
@@ -48,6 +48,18 @@ Before judging anything, learn the project's own rules:
 | `*.js`, `*.mjs`, `*.cjs`, `*.ts`, `*.tsx`, `*.jsx`, `*.vue` | [standards/javascript-typescript.md](standards/javascript-typescript.md) |
 | `*.sql`, migrations, stored procedures, and SQL strings embedded in code | [standards/sql.md](standards/sql.md) |
 | `*.py` | [standards/python.md](standards/python.md) |
+| `*.kt`, `*.kts` | [standards/kotlin.md](standards/kotlin.md) |
+| `*.go`, `go.mod` | [standards/go.md](standards/go.md) |
+| `*.php`, `composer.json`, `*.blade.php`, `*.twig` | [standards/php.md](standards/php.md) |
+| `*.swift`, `*.m`, `*.mm`, `Package.swift`, `Info.plist`, `*.entitlements`, `*.xcprivacy` | [standards/ios-swift.md](standards/ios-swift.md) |
+| Android modules: `AndroidManifest.xml`, Gradle files using `com.android.*` plugins, `res/` XML, and Kotlin/Java code that uses Android APIs | [standards/android.md](standards/android.md), plus kotlin.md or java.md |
+| Test code: `*.spec.*`, `*.test.*`, `*.cy.*`, `test_*.py`, `*Test.java`, `*Tests.cs`, `*_test.go`, `e2e/`, `tests/`, `playwright.config.*`, `cypress.config.*`, `*.feature` | [standards/test-automation.md](standards/test-automation.md), plus the language file |
+| `*.tf`, `*.tfvars`, `*.hcl`, CloudFormation or CDK templates, `*.bicep`, Pulumi programs | [standards/infrastructure-as-code.md](standards/infrastructure-as-code.md) |
+| `Dockerfile`, `Containerfile`, `compose.yaml` / `docker-compose*.yml`, Kubernetes manifests, Helm charts, Kustomize | [standards/containers-kubernetes.md](standards/containers-kubernetes.md) |
+| `.github/workflows/*.yml`, `Jenkinsfile`, `bitbucket-pipelines.yml`, `.gitlab-ci.yml`, `azure-pipelines.yml` | [standards/ci-cd.md](standards/ci-cd.md) |
+| `*.sh`, `*.bash`, `*.zsh`, files with a shell shebang, `*.ps1`, `*.psm1` | [standards/shell-scripts.md](standards/shell-scripts.md) |
+
+A file can match more than one row; load each file that matches. For example, an Android Kotlin test loads kotlin.md, android.md and test-automation.md.
 
 For a language with no standards file, use security-owasp.md, that language's official style guide, and the linters the project configures.
 

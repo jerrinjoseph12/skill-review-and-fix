@@ -32,7 +32,7 @@ Covers XML documents, schemas (XSD), XSLT, XML config files, and **code in any l
 - `[H]` XPath built by concatenating user input (XPath injection). Use parameterized XPath (variable resolvers).
 - `[H]` XML built by string concatenation with untrusted values (breaks escaping, injects elements). Use a DOM or StAX writer, or a serializer.
 - `[H]` `web.config`: `<compilation debug="true">`, `<customErrors mode="Off">`, or `<httpCookies>` without `requireSSL` / `httpOnlyCookies` in production transforms.
-- `[H]` `AndroidManifest.xml`: `android:debuggable="true"`; `android:exported="true"` on components without permission checks; `usesCleartextTraffic="true"`; `allowBackup="true"` for apps with sensitive data.
+- `[H]` `AndroidManifest.xml`: `android:debuggable="true"`; `android:exported="true"` on components without permission checks; `usesCleartextTraffic="true"`; `allowBackup="true"` for apps with sensitive data. See [android.md](android.md) for the full Android checklist.
 - `[M]` Spring XML or other DI config exposing actuator or admin beans; permissive security interceptors.
 
 ## Build files
