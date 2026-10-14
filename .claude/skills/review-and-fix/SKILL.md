@@ -1,6 +1,6 @@
 ---
 name: review-and-fix
-description: Review code for bugs, security issues, performance problems and maintainability concerns, rank every finding by severity (Critical, High, Medium, Low), then fix them in severity order, highest first, down to a chosen threshold, checking each fix with the project's tests and linters. Use when the user asks to review and fix code, clean up a diff before merging, harden a file or module, or "find and fix issues". Targets the uncommitted diff by default, or a path, branch or PR number.
+description: Review code for bugs, security issues, performance problems and maintainability concerns, rank every finding by severity (Critical, High, Medium, Low), then fix them in severity order, highest first, down to a chosen threshold, checking each fix with the project's tests and linters. Applies platform standards for Java, C#/.NET, Appian (SAIL), HTML/CSS/accessibility, XML, JavaScript/TypeScript, SQL and Python, plus OWASP Top 10:2025. Use when the user asks to review and fix code, clean up a diff before merging, harden a file or module, or "find and fix issues". Targets the uncommitted diff by default, or a path, branch or PR number.
 argument-hint: "[path | branch | PR#] [--threshold critical|high|medium|low] [--dry-run]"
 ---
 
@@ -36,10 +36,26 @@ Before judging anything, learn the project's own rules:
 2. Find the commands that check correctness: the test runner, type checker, linter and build (from `package.json` scripts, `Makefile`, `pyproject.toml`, `Cargo.toml`, CI workflow files, and so on). Record them; step 5 needs them.
 3. Run those checks once **before** changing anything, and record the baseline. Failures that already exist are not caused by your fixes. Note them separately and don't fix them unless they fall within the scope.
 4. For each file under review, read the callers and callees of the changed code that matter, not just the diff hunk.
+5. **Load the platform standards** that match the files in scope. Always load [standards/security-owasp.md](standards/security-owasp.md). Then load only the rows below that apply:
+
+| Files in scope | Standards file |
+|---|---|
+| `*.java`, `pom.xml`, `build.gradle(.kts)`, `appian-plugin.xml` | [standards/java.md](standards/java.md) |
+| `*.cs`, `*.csproj`, `*.cshtml`, `*.razor`, `appsettings*.json`, `web.config` | [standards/csharp-dotnet.md](standards/csharp-dotnet.md) |
+| SAIL (`*.sail`), Appian export XML (`content/*.xml`), Appian objects read via an Appian MCP server | [standards/appian.md](standards/appian.md) |
+| `*.html`, `*.css`, `*.scss`, and markup in templates (`*.jsp`, `*.cshtml`, `*.razor`, `*.jsx`, `*.tsx`, `*.vue`, Angular templates) | [standards/html-css.md](standards/html-css.md) |
+| `*.xml`, `*.xsd`, `*.xsl(t)`, `*.config`, `AndroidManifest.xml`, and any code that parses or builds XML | [standards/xml.md](standards/xml.md) |
+| `*.js`, `*.mjs`, `*.cjs`, `*.ts`, `*.tsx`, `*.jsx`, `*.vue` | [standards/javascript-typescript.md](standards/javascript-typescript.md) |
+| `*.sql`, migrations, stored procedures, and SQL strings embedded in code | [standards/sql.md](standards/sql.md) |
+| `*.py` | [standards/python.md](standards/python.md) |
+
+For a language with no standards file, use security-owasp.md, that language's official style guide, and the linters the project configures.
+
+**The project's own rules take precedence** over these general standards. If the project's linter config, `.editorconfig`, `CLAUDE.md` or existing conventions intentionally differ, follow the project and don't report the difference.
 
 ## 3. Review
 
-Go through the code looking for each category below. See [severity.md](severity.md) for the full rubric and examples.
+Go through the code looking for each category below, and apply the checklist in each loaded standards file. The `[C]`, `[H]`, `[M]` and `[L]` tags in those files are default severities. Adjust them for actual impact and likelihood using [severity.md](severity.md), which has the full rubric and examples.
 
 - **Correctness:** logic errors, off-by-one, null or undefined handling, wrong conditions, unhandled error paths, race conditions, resource leaks, broken edge cases (empty, zero, max, unicode, timezone).
 - **Security:** injection (SQL, shell, path, template), missing authentication or authorization checks, secrets in code, unsafe deserialization, SSRF, XSS, weak crypto, sensitive data in logs.
@@ -67,7 +83,10 @@ Mark a finding **needs-decision** instead of fixing it if the fix would:
 - change a public API, a database schema, or a persisted data format,
 - require choosing between product behaviors the code doesn't settle,
 - touch more than about 3 files or need a large refactor,
-- add a new dependency.
+- add a new dependency,
+- require hand-editing generated files, such as Appian export XML with its UUIDs and version info.
+
+Fixes to objects in a **live environment** (for example Appian objects edited through an MCP server) change shared state. List the exact changes and get the user's confirmation before you make them, even for findings above the threshold.
 
 ## 4. Report findings
 
