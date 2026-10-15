@@ -27,7 +27,36 @@ rm -rf /tmp/skill-review-and-fix
 
 **For one project, shared with your team:** run the same commands from the project's root folder, but copy into `.claude/skills/` instead of `~/.claude/skills/`. Then commit that folder.
 
-Start a new Claude Code session and type `/review-and-fix` to check it's installed. To update, run the commands again.
+Start a new Claude Code session and type `/review-and-fix` to check it's installed.
+
+## Update
+
+**If you installed by copying**, replace the folder with a fresh copy. Delete it first so files removed from the repo don't linger:
+
+```bash
+git clone --depth 1 https://github.com/jerrinjoseph12/skill-review-and-fix.git /tmp/skill-review-and-fix
+rm -rf ~/.claude/skills/review-and-fix
+cp -r /tmp/skill-review-and-fix/.claude/skills/review-and-fix ~/.claude/skills/
+rm -rf /tmp/skill-review-and-fix
+```
+
+For a project install, run the same commands from the project's root folder, with `.claude/skills/` in place of `~/.claude/skills/`. Then commit the updated folder so your team gets it.
+
+**To make future updates a single command**, keep a clone of the repo and link the skill to it. This is a one-time setup:
+
+```bash
+git clone https://github.com/jerrinjoseph12/skill-review-and-fix.git ~/src/skill-review-and-fix
+rm -rf ~/.claude/skills/review-and-fix
+ln -s ~/src/skill-review-and-fix/.claude/skills/review-and-fix ~/.claude/skills/review-and-fix
+```
+
+After that, update with:
+
+```bash
+git -C ~/src/skill-review-and-fix pull
+```
+
+**After any update**, start a new Claude Code session so it loads the new version. To check which version you have, look for a recently added file, for example `ls ~/.claude/skills/review-and-fix/standards/`.
 
 ## Usage
 
