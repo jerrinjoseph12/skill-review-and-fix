@@ -6,8 +6,8 @@ It applies platform standards for:
 
 - **Languages:** Java, Kotlin, C#/.NET, Go, PHP, Python, JavaScript/TypeScript, SQL
 - **Mobile:** Apple iOS (Swift, Objective-C), Android
-- **Web and low-code:** HTML/CSS and accessibility, XML, Appian (SAIL)
-- **Testing:** Playwright, Cypress, Selenium, Appium and unit test frameworks
+- **Web and low-code:** HTML/CSS and accessibility, XML, Appian (SAIL), Salesforce (Apex, LWC, Flows), OutSystems
+- **Testing:** Playwright, Cypress, Selenium, Appium and unit test frameworks; iOS and Android test tools (XCTest, Swift Testing, XCUITest, Espresso, Compose, Robolectric); performance testing (JMH, BenchmarkDotNet, JMeter, Gatling, k6, Locust)
 - **Infrastructure and delivery:** Terraform and other infrastructure-as-code, Docker and Kubernetes, CI/CD pipelines, shell scripts
 
 It also checks every review against the **OWASP Top 10:2025** for security.
@@ -103,6 +103,10 @@ Severity is judged by **impact × likelihood**, not by category. The full rubric
 | `Dockerfile`, Compose, Kubernetes, Helm | [containers-kubernetes.md](.claude/skills/review-and-fix/standards/containers-kubernetes.md) | Dockerfile best practices, CIS Docker and Kubernetes benchmarks, Pod Security Standards |
 | GitHub Actions, Jenkins, Bitbucket, GitLab, Azure Pipelines | [ci-cd.md](.claude/skills/review-and-fix/standards/ci-cd.md) | GitHub Actions security hardening, OWASP Top 10 CI/CD Security Risks, SLSA |
 | `*.sh`, `*.bash`, `*.zsh`, `*.ps1` | [shell-scripts.md](.claude/skills/review-and-fix/standards/shell-scripts.md) | ShellCheck, Google Shell Style Guide, PSScriptAnalyzer |
+| Apex, LWC, Aura, Visualforce, Flows | [salesforce.md](.claude/skills/review-and-fix/standards/salesforce.md) | Apex Developer Guide, Salesforce Secure Coding Guide, Salesforce Code Analyzer |
+| OutSystems extensions, exported code, Mentor findings | [outsystems.md](.claude/skills/review-and-fix/standards/outsystems.md) | OutSystems Architecture Canvas, security and performance best practices, OutSystems Mentor |
+| iOS and Android test suites | [mobile-testing.md](.claude/skills/review-and-fix/standards/mobile-testing.md) | XCTest, Swift Testing, Espresso, Compose testing and coroutine testing guides |
+| Benchmarks and load tests | [performance-testing.md](.claude/skills/review-and-fix/standards/performance-testing.md) | JMH, BenchmarkDotNet, Go benchmarks, JMeter, Gatling, k6 and Locust docs |
 
 A file can match more than one row, and the skill loads every matching file. For example, an Android Kotlin test gets the Kotlin, Android and test-automation checklists.
 
@@ -144,5 +148,9 @@ For Appian, install the `appian` skill as well if you have it. This skill uses i
     ├── infrastructure-as-code.md
     ├── containers-kubernetes.md
     ├── ci-cd.md
-    └── shell-scripts.md
+    ├── shell-scripts.md
+    ├── salesforce.md
+    ├── outsystems.md
+    ├── mobile-testing.md
+    └── performance-testing.md
 ```

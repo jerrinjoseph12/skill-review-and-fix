@@ -2,7 +2,7 @@
 
 Legend: `[C]` Critical, `[H]` High, `[M]` Medium, `[L]` Low (default severity; adjust per [../severity.md](../severity.md)).
 
-Covers end-to-end and UI automation (Playwright, Cypress, Selenium/WebDriver, Appium, XCUITest, Espresso), unit and integration tests (JUnit, TestNG, NUnit, xUnit, MSTest, pytest, Jest, Vitest, Go `testing`, PHPUnit, XCTest), and BDD (Cucumber, SpecFlow/Reqnroll). Also apply the standards file for the test code's language.
+Covers end-to-end and UI automation (Playwright, Cypress, Selenium/WebDriver, Appium, XCUITest, Espresso), unit and integration tests (JUnit, TestNG, NUnit, xUnit, MSTest, pytest, Jest, Vitest, Go `testing`, PHPUnit, XCTest), and BDD (Cucumber, SpecFlow/Reqnroll). Also apply the standards file for the test code's language. Native iOS and Android test tools have extra checks in [mobile-testing.md](mobile-testing.md); benchmarks and load tests are in [performance-testing.md](performance-testing.md).
 
 **Severity in test code:** a defect that makes a test **pass when it should fail** is High, because it hides real bugs. Flakiness is usually Medium, or High if it blocks CI. Style is Low.
 

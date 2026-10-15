@@ -1,6 +1,6 @@
 ---
 name: review-and-fix
-description: Review code for bugs, security issues, performance problems and maintainability concerns, rank every finding by severity (Critical, High, Medium, Low), then fix them in severity order, highest first, down to a chosen threshold, checking each fix with the project's tests and linters. Applies platform standards for Java, Kotlin, C#/.NET, Go, PHP, Python, JavaScript/TypeScript, Apple iOS/Swift, Android, Appian (SAIL), HTML/CSS/accessibility, XML, SQL, test automation (Playwright, Cypress, Selenium, Appium, unit tests), Terraform/IaC, Docker/Kubernetes, CI/CD pipelines and shell scripts, plus OWASP Top 10:2025. Use when the user asks to review and fix code, clean up a diff before merging, harden a file or module, or "find and fix issues". Targets the uncommitted diff by default, or a path, branch or PR number.
+description: Review code for bugs, security issues, performance problems and maintainability concerns, rank every finding by severity (Critical, High, Medium, Low), then fix them in severity order, highest first, down to a chosen threshold, checking each fix with the project's tests and linters. Applies platform standards for Java, Kotlin, C#/.NET, Go, PHP, Python, JavaScript/TypeScript, Apple iOS/Swift, Android, Salesforce (Apex, LWC, Flows), OutSystems, Appian (SAIL), HTML/CSS/accessibility, XML, SQL, test automation (Playwright, Cypress, Selenium, Appium, unit tests), iOS and Android testing tools (XCTest, XCUITest, Espresso, Compose), performance testing (JMH, BenchmarkDotNet, JMeter, Gatling, k6, Locust), Terraform/IaC, Docker/Kubernetes, CI/CD pipelines and shell scripts, plus OWASP Top 10:2025. Use when the user asks to review and fix code, clean up a diff before merging, harden a file or module, or "find and fix issues". Targets the uncommitted diff by default, or a path, branch or PR number.
 argument-hint: "[path | branch | PR#] [--threshold critical|high|medium|low] [--dry-run]"
 ---
 
@@ -58,6 +58,10 @@ Before judging anything, learn the project's own rules:
 | `Dockerfile`, `Containerfile`, `compose.yaml` / `docker-compose*.yml`, Kubernetes manifests, Helm charts, Kustomize | [standards/containers-kubernetes.md](standards/containers-kubernetes.md) |
 | `.github/workflows/*.yml`, `Jenkinsfile`, `bitbucket-pipelines.yml`, `.gitlab-ci.yml`, `azure-pipelines.yml` | [standards/ci-cd.md](standards/ci-cd.md) |
 | `*.sh`, `*.bash`, `*.zsh`, files with a shell shebang, `*.ps1`, `*.psm1` | [standards/shell-scripts.md](standards/shell-scripts.md) |
+| Salesforce: `sfdx-project.json`, `*.cls`, `*.trigger`, `lwc/`, `aura/`, `*.page`, `*.component`, `*.flow-meta.xml` | [standards/salesforce.md](standards/salesforce.md) |
+| OutSystems: Integration Studio extensions, ODC external libraries, and exported custom JS/CSS/SQL or Mentor findings | [standards/outsystems.md](standards/outsystems.md) |
+| iOS tests (`*Tests.swift`, `*UITests/`), Android tests (`src/test/`, `src/androidTest/`), Appium, Maestro or Detox suites | [standards/mobile-testing.md](standards/mobile-testing.md), plus test-automation.md |
+| Benchmarks and load tests: JMH (`@Benchmark`), BenchmarkDotNet, Go `Benchmark*`, `*.jmx`, Gatling simulations, k6 scripts, `locustfile.py`, Artillery YAML, Lighthouse CI config | [standards/performance-testing.md](standards/performance-testing.md) |
 
 A file can match more than one row; load each file that matches. For example, an Android Kotlin test loads kotlin.md, android.md and test-automation.md.
 
